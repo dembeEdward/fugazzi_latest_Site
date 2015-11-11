@@ -1,0 +1,87 @@
+#rightMenuItems{
+
+	color: white;
+	font-weight: bold;
+	margin-top: 7px;
+}
+
+
+
+.ui.large.inverted.menu{
+
+	font-size: 15px;
+}
+
+h4{
+
+	color: white;
+	font-weight: bold;
+}
+
+#modalLabel{
+	color: white;
+}
+
+#error{
+	color: red;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#addButton{
+	width : 100%;
+}
+
+#addLocation{
+
+	width : 100%;
+	margin-top: -0.3%;
+}
+
+#quote{
+
+	width : 100%;
+	margin-top: -0.4%;
+}
+
+#rightMenuItems{
+
+	color: white;
+	font-weight: bold;
+	margin-top: 7px;
+}
+
+.ui.large.inverted.menu{
+
+	font-size: 15px;
+}
+
+#modalHeaders{
+
+	color: white;
+	font-weight: bold;
+}
+
+#modalLabel{
+	color: white;
+}
+
+#error{
+	color: red;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#addButton{
+	width : 100%;
+}
+
+#addLocation{
+
+	width : 100%;
+	
+}
+
+#searchInput{
+	margin-top: -0.1%
+}

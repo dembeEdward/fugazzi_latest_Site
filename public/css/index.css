@@ -1,0 +1,40 @@
+body{
+
+	background-image: url('../images/background.jpg') ;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-weight: bold;
+}
+
+.ui.large.inverted.menu{
+
+	font-size: 15px;
+}
+
+.modal.fade{
+
+	font-size: 20px;
+}
+
+.modal-content{
+
+	background-image: url('../images/backgroundsmall.jpg');
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	color: white;
+}
+
+.g-signin2{
+
+	margin-left: 4%;
+}
+
+#NameLogo{
+
+	margin-top: 5%;
+	font-size: 20px;
+}

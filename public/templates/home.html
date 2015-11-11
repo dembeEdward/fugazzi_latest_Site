@@ -1,0 +1,171 @@
+<header>
+    <div class="ui large inverted menu">
+  <div class="ui container">
+    <div class="right menu">
+      <a class="item" ng-click="logout()" >
+        <i class="sign out icon"></i>
+          Logout
+      </a>
+      <div id="rightMenuItems">
+        <img class="ui avatar image" ng-src="{{userProfile.picture}}">
+        <span ng-bind="userProfile.name"></span>
+      </div> 
+    </div>
+  </div>
+</div>
+</header>
+
+<section>
+
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="img/salon_location.jpg" alt="...">
+        <div class="carousel-caption">
+          Any place
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/071712-LOCATION-APPS-006edit.jpg" alt="...">
+        <div class="carousel-caption">
+          Super convinient
+        </div>
+      </div>
+      <div class="item">
+        <img src="img/compass.jpg" alt="...">
+        <div class="carousel-caption">
+          In any direction
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="row">
+    <div class="col-md-12">
+      <button class="ui massive olive button" id="addButton" ng-click="showAddLocation()" ng-show="addLocationButton">
+        <i class="marker icon"></i>
+            Add Location
+      </button>
+      </div>
+  </div>
+
+    <form name="searchForm" novalidate>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="ui large right action left icon input" ng-show="addPickUpLocation" id="addLocation">
+              <input type="text" placeholder="Add pick up location" ng-model="searchPickUp" googleplace required autofocus>
+              <i class="marker icon"></i>
+              <button class="ui yellow right labeled icon button" ng-click ="searchForPickUp()">
+                <i class="marker icon"></i>
+                Add
+              </button>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="ui large right action left icon input" ng-show="addDestinationLocation" id="addLocation">
+              <input type="text" placeholder="Add destination location"  id="searchInput" ng-model="searchDestination" googleplace required autofocus>
+              <i class="marker icon"></i>
+              <button class="ui green right labeled icon button" ng-click ="searchForDestination()" id="searchInput">
+                <i class="marker icon"></i>
+                Add
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6" id="button-background">
+              <button class="ui massive teal active button" ng-click ="getDistance()" ng-show="showQuote" id="quote">
+                <i class="calculator icon"></i>
+                Quote
+              </button>
+          </div>
+           <div class="col-md-6">
+              <button class="ui massive violet active button" ng-click ="changeLocation()" ng-show="showQuote" id="quote">
+                <i class="location arrow icon"></i>
+                Change Location
+              </button>
+          </div>
+        </div>            
+      </form>
+</section>
+
+<section>
+  <div id="map"></div>
+</section>
+
+    <div class="modal fade" id="error">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Error <i class="frown icon"></i></h4>
+        </div>
+        <div class="modal-body">
+          <p>{{error}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="ui massive red button" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="quote-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h2 class="modal-title" id="modalHeaders">Route Details</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Pick up Location</label>
+                <input type="text" class="form-control" ng-model="searchPickUp">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Destination Location</label>
+                <input type="text" class="form-control" ng-model="searchDestination">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Distance</label>
+                <input type="text" class="form-control" ng-model="totalDistance">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Time</label>
+                <input type="text" class="form-control" ng-model="time">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" ng-click="getItems()">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
