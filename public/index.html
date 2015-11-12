@@ -22,11 +22,11 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">    
     <link rel="stylesheet" type="text/css" href="css/homepage.css">
     <link rel="stylesheet" type="text/css" href="css/items.css">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.css">
+    <link href="css/massautocomplete.theme.css" rel="stylesheet" type="text/css">
     
     <script src="js/jquery.js"></script> 
     <script src="semantic/dist/semantic.min.js"></script>
@@ -36,6 +36,8 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-cookies.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.js"></script>
+    <script src="js/massautocomplete.js"></script>
     <script src="js/angular-ui-router.js"></script>
     <script type="text/javascript" src="https://cdn.auth0.com/w2/auth0-angular-4.js"></script>
     <script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js" type="text/javascript"> </script>
@@ -94,6 +96,38 @@
     </nav>
 
     <ui-view></ui-view>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Fugazzi Delivery</strong>
+                    </h4>
+                    <p>107 Bishop's Square, Leogem Place<br>Noordwyk, Midrand 1687</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
+                        <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:info@fuggazi.com">info@fuggazi.com</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        </li>
+                    </ul>
+                    <hr class="small">
+                    <p class="text-muted">Copyright 2015</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
     <!-- Bootstrap Core JavaScript -->

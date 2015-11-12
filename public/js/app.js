@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var app = angular.module("fugazzi", ['ui.router', 'auth0', 'angular-storage', 'angular-jwt', 'ui.map', 'ui.event']);
+    var app = angular.module("fugazzi", ['ui.router', 'auth0', 'angular-storage', 'angular-jwt', 'ui.map', 'ui.event','ngSanitize', 'MassAutoComplete']);
 
     app.config(function($stateProvider, $urlRouterProvider, authProvider) {
 
@@ -133,22 +133,6 @@
         };
     });
 
-    app.service('allItems', function($http, store){
-
-        var items = store.get('allItems');
-
-        this.setItems = function(){
-
-            if(!items){
-
-                $http.get('/getAllItems').then(function(response){
-
-                    store.set('allItems', response.data);
-                });
-            }
-        };
-    });
-
     app.service('showCarousel', function(){
 
 
@@ -184,7 +168,7 @@
         };
     });
 
-    app.controller("homepageCtrl", function($scope, GeolocationService, Map, $http, store, auth, $location, allItems, logout) {
+    app.controller("homepageCtrl", function($scope, GeolocationService, Map, $http, store, auth, $location, logout) {
 
         $scope.lat = "0";
         $scope.lng = "0";
@@ -324,6 +308,8 @@
                     $scope.totalDistance = $scope.distance.rows[0].elements[0].distance.text;
                     $scope.time = $scope.distance.rows[0].elements[0].duration.text;
 
+                    store.set('totalDistance', $scope.totalDistance);
+                    store.set('time', $scope.time);
                     console.log($scope.distance);
                 });
 
@@ -389,15 +375,176 @@
         };
     });
 
-    app.controller('itemsCtrl', function($scope, store, auth, allItems, logout){
+    app.controller('itemsCtrl', function($scope, store, auth, logout, $http, $sce, $q){
 
         $scope.allItems = [];
+        $scope.prices = [];
+        $scope.totalPrice = 0;
+        $scope.dirty = {};
 
-        setItems.setItems();
+        $scope.showFinish = false;
+        $scope.showAdd = true;
 
         $scope.userProfile = store.get('profile');
 
         $scope.allItems = store.get('allItems');
+
+        if(!$scope.allItems){
+
+            $http.get('/getAllItems').then(function(response){
+
+                console.log(response.data);
+                store.set('allItems', response.data);
+                $scope.allItems = store.get('allItems');
+            });
+        }
+            //console.log($scope.allItems[0]);
+        function suggest_state(term) {
+            
+            var q = term.toLowerCase().trim();
+            var results = [];
+
+            for (var i = 0; i < $scope.allItems.length && results.length < 10; i++) {
+                
+                var item = $scope.allItems[i].Item;
+                
+                if (item.toLowerCase().indexOf(q) === 0)                   
+                    results.push({ label: item, value: item });
+            }
+
+            return results;
+        }
+
+        $scope.autocomplete_options = {
+            suggest: suggest_state
+        };
+
+        $scope.buscket = [];
+
+        $scope.addToBuscket = function(){
+
+            for(var x=0; x<$scope.allItems.length; x++){
+
+                if($scope.dirty.value == $scope.allItems[x].Item){
+                    
+                    $scope.buscket.push($scope.allItems[x]);
+                    break;
+                }
+            }
+
+            $scope.dirty.value = "";
+
+            if($scope.buscket.length > 0){
+                $scope.showFinish = true;
+            }else{
+                $scope.showFinish = false;
+            }
+
+            if($scope.buscket.length == 10){
+                $scope.showAdd = false;
+            }else{
+                $scope.showAdd = true;
+            }
+
+            //console.log($scope.buscket[0]);
+        };
+
+        $scope.removeFromBuscket = function(index){
+
+            $scope.buscket.splice(index, 1);
+
+            if($scope.buscket.length > 0){
+                $scope.showFinish = true;
+            }else{
+                $scope.showFinish = false;
+            }
+
+            if($scope.buscket.length == 10){
+                $scope.showAdd = false;
+            }else{
+                $scope.showAdd = true;
+            }
+        };
+
+        $scope.getPrices = function(){
+
+            $http.get('/getPrices').then(function(response){
+
+                //console.log(response);
+
+                for(var x=0; x<response.data.length; x++){
+
+                    $scope.prices[x] = {rate : (response.data[x].field2/100), category: response.data[x].category};
+                }
+
+                store.set('prices', $scope.prices);
+                //console.log($scope.prices);
+            });
+
+        };
+
+        $scope.calculatePrice = function(){
+
+            $scope.discountRate = 0;
+            $scope.currentPrice = 0;
+            $scope.totalPriceRate = 0;
+
+            if(!store.get('prices')){
+
+                $scope.prices = store.get('prices');
+                console.log($scope.prices);
+            }else{
+
+                $scope.getPrices();
+                $scope.prices = store.get('prices');
+                console.log($scope.prices);
+            }
+
+            if(parseInt(store.get('totalDistance')) <= 10){
+                    $scope.discountRate = 1;
+                    console.log($scope.discountRate);
+                }else if(parseInt(store.get('totalDistance')) > 10 && parseInt(store.get('totalDistance')) <= 20){
+                    $scope.discountRate = 0.8;
+                    console.log($scope.discountRate);
+                }else if(parseInt(store.get('totalDistance')) > 20 && parseInt(store.get('totalDistance')) <= 30){
+                    $scope.discountRate = 0.75;
+                    console.log($scope.discountRate);
+                }else if(parseInt(store.get('totalDistance')) > 30 && parseInt(store.get('totalDistance') )<= 40){
+                    $scope.discountRate = 0.65;
+                    console.log($scope.discountRate);
+                }else{
+                    $scope.discountRate = 0.6;
+                    console.log($scope.discountRate);
+                }
+
+
+            for(var x=0; x<$scope.buscket.length; x++){
+
+                $scope.priceRate = 0;
+
+                console.log("busket item name: " + $scope.buscket[x].Item);
+                console.log("busket item category : " + $scope.buscket[x].Category);
+
+                for(var y=0; y<$scope.prices.length; y++){
+
+                    if($scope.buscket[x].Category == $scope.prices[y].category){
+                        $scope.priceRate = $scope.prices[y].rate;
+                        break;
+                    }
+
+                }
+
+                console.log("category rate :" + $scope.prices[x].rate);
+
+                $scope.totalPriceRate = $scope.totalPriceRate + $scope.prices[x].rate;
+ 
+            }
+            console.log("Current Total Price Rate: " + $scope.totalPriceRate);
+
+            $scope.totalPrice = ((parseFloat(store.get('totalDistance')  )*  5 * ($scope.totalPriceRate + $scope.buscket.length) * ($scope.discountRate * $scope.buscket.length))/($scope.discountRate * $scope.buscket.length));
+            
+            console.log($scope.totalPrice); 
+        };
 
         $scope.logout = function() {
 

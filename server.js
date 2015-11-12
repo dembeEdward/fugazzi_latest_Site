@@ -49,7 +49,18 @@ app.get('/getAllItems', function(req, res){
 
 	db.categories.find(function(err, docs){
 
-		console.log('sending extra small items');
+		console.log('sending all items');
+		res.json(docs);
+	});
+});
+
+app.get('/getPrices', function(req, res){
+	
+	console.log('getting prices');
+
+	db.prices.find(function(err, docs){
+
+		console.log('sending prices');
 		res.json(docs);
 	});
 });
