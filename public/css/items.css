@@ -8,3 +8,15 @@
 
 	color: black;
 }
+
+#searchItems{
+
+	margin-top: 3%;
+	width: 80%;
+}
+
+#searchItemsButton{
+
+	margin-top: -5%;
+	margin-left: 80%;
+}

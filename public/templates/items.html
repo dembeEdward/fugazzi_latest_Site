@@ -1,6 +1,7 @@
 <header>
   <div class="ui large inverted menu">
   <div class="ui container">
+    <a class="item ui large secondary button" id="simple-menu" href="#sidr"><i class="sidebar icon"></i></a>
     <div class="right menu">
       <a class="item" ng-click="logout()" >
         <i class="sign out icon"></i>
@@ -19,16 +20,48 @@
   <section style="margin-top:3%">
         <div class="container">
 
+              <form class="ui form">
+                <div class="field">
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Pick Up Location</label>
+                      <input type="text" ng-model="pickUp">
+                    </div>
+                    <div class="field">
+                      <label>Destination Location</label>
+                      <input type="text" ng-model="destination">
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Kilometers</label>
+                      <input type="text" ng-model="kms">
+                    </div>
+                    <div class="field">
+                      <label>Time</label>
+                      <input type="text" ng-model="time">
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Total Number Of Items</label>
+                      <input type="text" >
+                    </div>
+                    <div class="field">
+                      <label>Total Price</label>
+                      <input type="text" >
+                    </div>
+                  </div>
+                </div>
+              </form>
 
-              <div mass-autocomplete>
+              <div mass-autocomplete id="searchItems">
                 <input ng-model="dirty.value"
                       mass-autocomplete-item="autocomplete_options"
                       placeholder="Search for items"
                       class="form-control">
               </div>
-
-
-              <button class="btn btn-default" ng-click="addToBuscket()" ng-show="showAdd">
+              <button class="btn btn-default" ng-click="addToBuscket()" ng-show="showAdd" id="searchItemsButton">
                 <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                 Add
               </button>

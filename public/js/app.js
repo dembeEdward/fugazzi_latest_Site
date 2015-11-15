@@ -148,6 +148,10 @@
             $location.path('/');
             store.remove('profile');
             store.remove('token');
+            store.remove('time');
+            store.remove('totalDistance');
+            store.remove('pickUp');
+            store.remove('destination');
         };
     });
 
@@ -159,16 +163,18 @@
             login.signin();
         }
            
-        $('.carousel').carousel();
-
         $scope.showOptions = function() {
 
             $('.modal.fade')
                 .modal('show');
         };
+
+     
+        $('#simple-menu').sidr();
+        
     });
 
-    app.controller("homepageCtrl", function($scope, GeolocationService, Map, $http, store, auth, $location, logout) {
+    app.controller("homepageCtrl", function($scope, GeolocationService, Map, $http, store, auth, $location, logout, $timeout) {
 
         $scope.lat = "0";
         $scope.lng = "0";
@@ -202,6 +208,9 @@
         $scope.allItems = [];
 
         console.log($scope.userProfile);
+
+        $('#simple-menu').sidr();
+        $('.carousel').carousel();
 
         $scope.search = function() {
 
@@ -310,18 +319,17 @@
 
                     store.set('totalDistance', $scope.totalDistance);
                     store.set('time', $scope.time);
+                    store.set('pickUp', $scope.searchPickUp);
+                    store.set('destination', $scope.searchDestination);
                     console.log($scope.distance);
                 });
 
-                $('#quote-modal')
-                    .modal('show');
-
                 $scope.pickUpPress = false;
                 $scope.destinationPress = false;
-                //$scope.changeLocation();
+                
+                $location.url('/items');
             }
         };
-
 
         $scope.changeLocation = function() {
 
@@ -371,7 +379,6 @@
             logout.signout();
             $scope.profile = {};
             $scope.allItems = [];
-            store.remove('allItems');
         };
     });
 
@@ -385,9 +392,16 @@
         $scope.showFinish = false;
         $scope.showAdd = true;
 
-        $scope.userProfile = store.get('profile');
+        $('#simple-menu').sidr();
 
+        $scope.userProfile = store.get('profile');
         $scope.allItems = store.get('allItems');
+        $scope.pickUp = store.get('pickUp');
+        $scope.destination = store.get('destination');
+        $scope.time = store.get('time');
+        $scope.kms = store.get('totalDistance');
+
+        console.log($scope.pickUp);
 
         if(!$scope.allItems){
 
@@ -551,7 +565,6 @@
             logout.signout();
             $scope.profile = {};
             $scope.allItems = [];
-            store.remove('allItems');
         };
     });
 

@@ -1,6 +1,7 @@
 <header>
     <div class="ui large inverted menu">
   <div class="ui container">
+    <a class="item ui large secondary button" id="simple-menu" href="#sidr"><i class="sidebar icon"></i></a>
     <div class="right menu">
       <a class="item" ng-click="logout()" >
         <i class="sign out icon"></i>
@@ -117,55 +118,7 @@
     </div>
   </div>
 
-  <div class="modal" id="quote-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h2 class="modal-title" id="modalHeaders">Route Details</h2>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Pick up Location</label>
-                <input type="text" class="form-control" ng-model="searchPickUp">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Destination Location</label>
-                <input type="text" class="form-control" ng-model="searchDestination">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Distance</label>
-                <input type="text" class="form-control" ng-model="totalDistance">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Time</label>
-                <input type="text" class="form-control" ng-model="time">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-warning" ng-click="getItems()">Next</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  
 
 
 
