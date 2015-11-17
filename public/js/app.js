@@ -253,7 +253,7 @@
                 $scope.addPickUpLocation = false;
                 $scope.addDestinationLocation = true;
             }
-        }
+        };
 
         $scope.searchForDestination = function() {
 
@@ -281,7 +281,7 @@
 
                 $scope.destinationPress = true;
             }
-        }
+        };
 
 
         GeolocationService().then(function(position) {
@@ -327,7 +327,7 @@
                 $scope.pickUpPress = false;
                 $scope.destinationPress = false;
                 
-                $location.url('/items');
+                $location.path('/items');
             }
         };
 
@@ -391,6 +391,7 @@
 
         $scope.showFinish = false;
         $scope.showAdd = true;
+        $scope.showTotalPrice = false;
 
         $('#simple-menu').sidr();
 
@@ -402,6 +403,15 @@
         $scope.kms = store.get('totalDistance');
 
         console.log($scope.pickUp);
+
+        if(!$scope.pickUp){
+
+            $scope.pickUp = store.get('pickUp');
+            $scope.destination = store.get('destination');
+            $scope.time = store.get('time');
+            $scope.kms = store.get('totalDistance');
+
+        }
 
         if(!$scope.allItems){
 
@@ -556,7 +566,9 @@
             console.log("Current Total Price Rate: " + $scope.totalPriceRate);
 
             $scope.totalPrice = ((parseFloat(store.get('totalDistance')  )*  5 * ($scope.totalPriceRate + $scope.buscket.length) * ($scope.discountRate * $scope.buscket.length))/($scope.discountRate * $scope.buscket.length));
-            
+            $scope.showTotalPrice = true;
+            $scope.itemsNo = $scope.buscket.length;
+
             console.log($scope.totalPrice); 
         };
 

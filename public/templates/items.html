@@ -42,14 +42,14 @@
                       <input type="text" ng-model="time">
                     </div>
                   </div>
-                  <div class="two fields">
+                  <div class="two fields" ng-show="showTotalPrice">
                     <div class="field">
                       <label>Total Number Of Items</label>
-                      <input type="text" >
+                      <span>{{itemsNo}}</span>
                     </div>
                     <div class="field">
                       <label>Total Price</label>
-                      <input type="text" >
+                      <span>{{totalPrice | currency : "R"}}</span>
                     </div>
                   </div>
                 </div>
