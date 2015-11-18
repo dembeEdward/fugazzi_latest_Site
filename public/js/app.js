@@ -327,7 +327,12 @@
                 $scope.pickUpPress = false;
                 $scope.destinationPress = false;
                 
-                $location.path('/items');
+                $timeout(callAlert, 1000);
+
+                function callAlert(){
+
+                    $location.path('/items');
+                }
             }
         };
 
@@ -388,6 +393,7 @@
         $scope.prices = [];
         $scope.totalPrice = 0;
         $scope.dirty = {};
+        $scope.pickUp = "";
 
         $scope.showFinish = false;
         $scope.showAdd = true;
@@ -404,14 +410,6 @@
 
         console.log($scope.pickUp);
 
-        if(!$scope.pickUp){
-
-            $scope.pickUp = store.get('pickUp');
-            $scope.destination = store.get('destination');
-            $scope.time = store.get('time');
-            $scope.kms = store.get('totalDistance');
-
-        }
 
         if(!$scope.allItems){
 
@@ -421,6 +419,15 @@
                 store.set('allItems', response.data);
                 $scope.allItems = store.get('allItems');
             });
+        }
+
+        if(!$scope.pickUp){
+
+            $scope.pickUp = store.get('pickUp');
+            $scope.destination = store.get('destination');
+            $scope.time = store.get('time');
+            $scope.kms = store.get('totalDistance');
+
         }
             //console.log($scope.allItems[0]);
         function suggest_state(term) {
@@ -515,6 +522,7 @@
 
             if(!store.get('prices')){
 
+                $scope.getPrices();
                 $scope.prices = store.get('prices');
                 console.log($scope.prices);
             }else{
