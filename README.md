@@ -6,3 +6,4 @@
   - https
   - request
   - mongojs
+  - body-parser
