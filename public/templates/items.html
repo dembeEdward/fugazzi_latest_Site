@@ -17,88 +17,88 @@
 </div>
 </header>
 
-<section>
-  <section style="margin-top:3%">
-        <div class="container">
+<section id="section1">
+  <div class="container">
 
-              <form class="ui form">
-                <div class="field">
-                  <div class="two fields">
-                    <div class="field">
-                      <label>Pick Up Location</label>
-                      <input type="text" ng-model="pickUp">
-                    </div>
-                    <div class="field">
-                      <label>Destination Location</label>
-                      <input type="text" ng-model="destination">
-                    </div>
-                  </div>
-                  <div class="two fields">
-                    <div class="field">
-                      <label>Kilometers</label>
-                      <input type="text" ng-model="kms">
-                    </div>
-                    <div class="field">
-                      <label>Time</label>
-                      <input type="text" ng-model="time">
-                    </div>
-                  </div>
-                  <div class="two fields" ng-show="showTotalPrice">
-                    <div class="field">
-                      <label>Total Number Of Items</label>
-                      <span>{{itemsNo}}</span>
-                    </div>
-                    <div class="field">
-                      <label>Total Price</label>
-                      <span>{{totalPrice | currency : "R"}}</span>
-                    </div>
-                  </div>
-                </div>
-              </form>
+    <form class="ui form">
+      <div class="field">
+        <div class="two fields">
+          <div class="field">
+            <label>Pick Up Location</label>
+            <span ng-bind="pickUp"></span>
+          </div>
+          <div class="field">
+            <label>Destination Location</label>
+            <span ng-bind="destination"></span>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Kilometers</label>
+            <span ng-bind="kms"></span>
+          </div>
+          <div class="field">
+            <label>Time</label>
+            <span ng-bind="time"></span>
+          </div>
+        </div>
+        <div class="two fields" ng-show="showTotalPrice">
+          <div class="field">
+            <label>Total Number Of Items</label>
+            <span ng-bind="itemsNo"></span>
+          </div>
+          <div class="field">
+            <label>Total Price</label>
+            <span>{{totalPrice | currency : "R"}}</span>
+          </div>
+        </div>
+      </div>
+    </form>
 
-              <div mass-autocomplete id="searchItems">
-                <input ng-model="dirty.value"
-                      mass-autocomplete-item="autocomplete_options"
-                      placeholder="Search for items"
-                      class="form-control">
-              </div>
-              <button class="btn btn-default" ng-click="addToBuscket()" ng-show="showAdd" id="searchItemsButton">
-                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                Add
-              </button>
+    <div mass-autocomplete id="searchItems">
+      <input ng-model="dirty.value"
+             mass-autocomplete-item="autocomplete_options"
+             placeholder="Search for items"
+             class="form-control">
+    </div>
 
+    <button class="btn btn-warning" ng-click="addToBuscket()" ng-show="showAdd" id="ItemsButton">
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+      Add
+    </button>
+    <button class="btn btn-success" ng-show="showFinish" ng-click="calculatePrice()" id="ItemsButton">
+      <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+      Finish
+    </button>
 
-        </div>  
-      </section>
-
-      <section style="margin-top:3%" class="container">
-        <h1>Selected Items</h1>
-        <br/>
-        <table class="table table-striped">
-          <thead>
-            <th>Name</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="itemObject in buscket">
-              <td>
-              {{itemObject.Item}}
-              </td>
-              <td>
-                <button class="btn btn-danger" ng-click="removeFromBuscket($index)" style="font-weight: bold;">
-                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  Remove
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section style="margin-top: 3%" class="container">
-        <button class="btn btn-success" ng-show="showFinish" ng-click="calculatePrice()">
-          <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-          Finish
-        </button>
-      </section>
-
+    <div class="alert alert-danger" role="alert" ng-show="showFail">
+      <b>Sorry!</b> Item already in buscket, please select a diffrent item or finish
+    </div> 
+  </div>  
 </section>
+
+<section id="section2" class="container">
+  <h1>Selected Items</h1>
+  <br/>
+        
+  <table class="table table-striped">
+    <thead>
+      <th>Name</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="itemObject in buscket">
+        <td>
+          {{itemObject.Item}}
+        </td>
+        <td>
+          <button class="btn btn-danger" ng-click="removeFromBuscket($index)" style="font-weight: bold;">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+      
+

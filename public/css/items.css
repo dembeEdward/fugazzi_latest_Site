@@ -12,11 +12,32 @@
 #searchItems{
 
 	margin-top: 3%;
-	width: 80%;
+	width: 70%;
 }
 
-#searchItemsButton{
+#section1{
 
-	margin-top: -5%;
-	margin-left: 80%;
+	padding-top: 3%;
+	padding-bottom: 11%;
+	background-image: url('../img/gold_white_background_compass.jpg');
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#section2{
+
+	margin-top: -10%;
+}
+
+.alert{
+
+	width: 80%;
+	margin-top: 1%;
+}
+
+#ItemsButton{
+
+	margin-top: 1%;
 }

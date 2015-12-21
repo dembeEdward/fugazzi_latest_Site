@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta name="google-signin-client_id" content="1033425245943-81i47gfpa19vgnsuprbi0tm5pnguvqiq.apps.googleusercontent.com">
 
-    <title>Fugazzi Delivery</title>
+    <title>Fugazzi Drop</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     <link href="css/stylish-portfolio.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">    
@@ -71,9 +71,9 @@
 
 <body>
 
-    <div id="sidr">
+    <div id="sidr" ng-controller="loginCtrl">
         <ul>
-            <li><a href="#home">Home</a></li>
+            <li><a ng-href="" ng-click="goToHome()">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Services</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -88,7 +88,7 @@
                 <div class="col-lg-10 col-lg-offset-1 text-center">
                     <h4><strong>Fugazzi Delivery</strong>
                     </h4>
-                    <p>107 Bishop's Square, Leogem Place<br>Noordwyk, Midrand 1687</p>
+                    <p>Leogem Place<br>Noordwyk, Midrand 1687</p>
                     <ul class="list-unstyled">
                         <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
                         <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:info@fuggazi.com">info@fuggazi.com</a>

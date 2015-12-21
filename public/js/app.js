@@ -140,6 +140,22 @@
 
     });
 
+    app.service('goHome', function($state, store, login){
+
+        this.goToHome = function(){
+
+            this.profile = store.get('profile');
+            
+            if(!this.profile){
+
+                login.signin();           
+            }else{
+
+                $state.go('home');
+            }
+        };
+    });
+
     app.service('logout', function($location, auth, store){
 
         this.signout = function(){
@@ -156,10 +172,9 @@
     });
 
 
-    app.controller("loginCtrl", function($scope, $http, login, store, showCarousel) {
+    app.controller("loginCtrl", function($scope, $http, login, store, showCarousel, goHome) {
 
         $scope.login = function() {
-
             login.signin();
         }
            
@@ -171,6 +186,11 @@
 
      
         $('#simple-menu').sidr();
+
+        $scope.goToHome = function(){
+
+            goHome.goToHome();
+        };
         
     });
 
@@ -454,33 +474,56 @@
 
         $scope.addToBuscket = function(){
 
-            for(var x=0; x<$scope.allItems.length; x++){
+            $scope.fail = false;
+            $scope.showFail = false;
+            $scope.showTotalPrice = false;
 
-                if($scope.dirty.value == $scope.allItems[x].Item){
-                    
-                    $scope.buscket.push($scope.allItems[x]);
+            for(var x=0; x<$scope.buscket.length; x++){
+
+                if($scope.dirty.value == $scope.buscket[x].Item){
+
+                    $scope.fail = true;
                     break;
                 }
             }
 
-            $scope.dirty.value = "";
+            console.log($scope.fail);
 
-            if($scope.buscket.length > 0){
-                $scope.showFinish = true;
+            if($scope.fail){
+                
+                $scope.showFail = true;
+
             }else{
-                $scope.showFinish = false;
-            }
 
-            if($scope.buscket.length == 10){
-                $scope.showAdd = false;
-            }else{
-                $scope.showAdd = true;
-            }
+                for(var x=0; x<$scope.allItems.length; x++){
 
-            //console.log($scope.buscket[0]);
+                    if($scope.dirty.value == $scope.allItems[x].Item){
+                    
+                        $scope.buscket.push($scope.allItems[x]);
+                        break;
+                    }
+                }
+
+                $scope.dirty.value = "";
+
+                if($scope.buscket.length > 0){
+                    $scope.showFinish = true;
+                }else{
+                    $scope.showFinish = false;
+                }
+                if($scope.buscket.length == 10){
+                    $scope.showAdd = false;
+                }else{
+                    $scope.showAdd = true;
+                }
+                //console.log($scope.buscket[0]);
+            }    
         };
 
         $scope.removeFromBuscket = function(index){
+
+            $scope.showFail = false;
+            $scope.showTotalPrice = false;
 
             $scope.buscket.splice(index, 1);
 
@@ -501,33 +544,40 @@
 
             $http.get('/getPrices').then(function(response){
 
-                //console.log(response);
+                console.log(response.data[0]);
+                console.log(response.data[0]["category rate"]);
 
                 for(var x=0; x<response.data.length; x++){
 
                     $scope.prices[x] = {rate : (response.data[x].field2/100), category: response.data[x].category};
+                    //$scope.prices[x] = {rate : (response.data[x]["category rate"]), category: response.data[x].category};
                 }
 
                 store.set('prices', $scope.prices);
-                //console.log($scope.prices);
+                console.log($scope.prices);
             });
 
         };
 
+        $scope.getPrices();
+
         $scope.calculatePrice = function(){
 
+            $scope.showFail = false;
             $scope.discountRate = 0;
             $scope.currentPrice = 0;
             $scope.totalPriceRate = 0;
 
+            console.log($scope.buscket);
+
             if(!store.get('prices')){
 
-                $scope.getPrices();
+                
                 $scope.prices = store.get('prices');
                 console.log($scope.prices);
             }else{
 
-                $scope.getPrices();
+                
                 $scope.prices = store.get('prices');
                 console.log($scope.prices);
             }
@@ -560,16 +610,13 @@
                 for(var y=0; y<$scope.prices.length; y++){
 
                     if($scope.buscket[x].Category == $scope.prices[y].category){
+                        
                         $scope.priceRate = $scope.prices[y].rate;
+                        $scope.totalPriceRate = $scope.totalPriceRate + $scope.prices[y].rate;
                         break;
                     }
 
-                }
-
-                console.log("category rate :" + $scope.prices[x].rate);
-
-                $scope.totalPriceRate = $scope.totalPriceRate + $scope.prices[x].rate;
- 
+                } 
             }
             console.log("Current Total Price Rate: " + $scope.totalPriceRate);
 
