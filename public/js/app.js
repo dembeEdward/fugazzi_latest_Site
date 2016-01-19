@@ -145,10 +145,10 @@
         this.goToHome = function(){
 
             this.profile = store.get('profile');
-            
+
             if(!this.profile){
 
-                login.signin();           
+                login.signin();
             }else{
 
                 $state.go('home');
@@ -177,21 +177,21 @@
         $scope.login = function() {
             login.signin();
         }
-           
+
         $scope.showOptions = function() {
 
             $('.modal.fade')
                 .modal('show');
         };
 
-     
+
         $('#simple-menu').sidr();
 
         $scope.goToHome = function(){
 
             goHome.goToHome();
         };
-        
+
     });
 
     app.controller("homepageCtrl", function($scope, GeolocationService, Map, $http, store, auth, $location, logout, $timeout) {
@@ -346,7 +346,7 @@
 
                 $scope.pickUpPress = false;
                 $scope.destinationPress = false;
-                
+
                 $timeout(callAlert, 1000);
 
                 function callAlert(){
@@ -451,15 +451,15 @@
         }
             //console.log($scope.allItems[0]);
         function suggest_state(term) {
-            
+
             var q = term.toLowerCase().trim();
             var results = [];
 
             for (var i = 0; i < $scope.allItems.length && results.length < 10; i++) {
-                
+
                 var item = $scope.allItems[i].Item;
-                
-                if (item.toLowerCase().indexOf(q) === 0)                   
+
+                if (item.toLowerCase().indexOf(q) === 0)
                     results.push({ label: item, value: item });
             }
 
@@ -490,7 +490,7 @@
             console.log($scope.fail);
 
             if($scope.fail){
-                
+
                 $scope.showFail = true;
 
             }else{
@@ -498,7 +498,7 @@
                 for(var x=0; x<$scope.allItems.length; x++){
 
                     if($scope.dirty.value == $scope.allItems[x].Item){
-                    
+
                         $scope.buscket.push($scope.allItems[x]);
                         break;
                     }
@@ -517,7 +517,7 @@
                     $scope.showAdd = true;
                 }
                 //console.log($scope.buscket[0]);
-            }    
+            }
         };
 
         $scope.removeFromBuscket = function(index){
@@ -572,12 +572,12 @@
 
             if(!store.get('prices')){
 
-                
+
                 $scope.prices = store.get('prices');
                 console.log($scope.prices);
             }else{
 
-                
+
                 $scope.prices = store.get('prices');
                 console.log($scope.prices);
             }
@@ -610,13 +610,13 @@
                 for(var y=0; y<$scope.prices.length; y++){
 
                     if($scope.buscket[x].Category == $scope.prices[y].category){
-                        
+
                         $scope.priceRate = $scope.prices[y].rate;
                         $scope.totalPriceRate = $scope.totalPriceRate + $scope.prices[y].rate;
                         break;
                     }
 
-                } 
+                }
             }
             console.log("Current Total Price Rate: " + $scope.totalPriceRate);
 
@@ -624,7 +624,7 @@
             $scope.showTotalPrice = true;
             $scope.itemsNo = $scope.buscket.length;
 
-            console.log($scope.totalPrice); 
+            console.log($scope.totalPrice);
         };
 
         $scope.logout = function() {
